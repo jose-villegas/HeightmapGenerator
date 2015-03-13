@@ -11,8 +11,10 @@ using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
 using System.Threading;
 
-namespace HeightmapGenerator {
-    class Heightmap {
+namespace HeightmapGenerator
+{
+    class Heightmap
+    {
         private int _height;
         private int _width;
         private int _stride;
@@ -46,40 +48,8 @@ namespace HeightmapGenerator {
             get { return bmp; }
         }
 
-        public Heightmap(int width, int height)
-        {
-            // create bitmap and reserve memory for raw pixel data
-            bmp = new Bitmap(width, height, PixelFormat.Format24bppRgb);
-            // create bitmap data and lockbits for fast writing
-            bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
-            // perlin function
-            Perlin = new AForge.Math.PerlinNoise();
-            // set internals
-            _height = height;
-            _width = width;
-            _stride = bmpData.Stride;
-            // reserve for texture values
-            MapValues = new byte[_height * _stride];
-        }
-
-        public Heightmap(int width, int height, int octaves, double persistence)
-        {
-            // create bitmap and reserve memory for raw pixel data
-            bmp = new Bitmap(width, height, PixelFormat.Format24bppRgb);
-            // create bitmap data and lockbits for fast writing
-            bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
-            // perlin function
-            Perlin = new AForge.Math.PerlinNoise(octaves, persistence);
-            // set internals
-            _height = height;
-            _width = width;
-            _stride = bmpData.Stride;
-            // reserve for texture values
-            MapValues = new byte[_height * _stride];
-        }
-
-        public Heightmap(int width, int height, int octaves, double persistence,
-                         double initFrequency, double initAmplitude)
+        public Heightmap(int width, int height, int octaves, double persistence, double initFrequency, double initAmplitude,
+                         bool threaded)
         {
             // create bitmap and reserve memory for raw pixel data
             bmp = new Bitmap(width, height, PixelFormat.Format24bppRgb);
@@ -93,13 +63,20 @@ namespace HeightmapGenerator {
             _stride = bmpData.Stride;
             // reserve for texture values
             MapValues = new byte[_height * _stride];
+            if(threaded) { AddPerlinNoiseThreaded(); }
+            else { AddPerlinNoise(); }
         }
 
-        public void AddPerlinNoise()
+        private void AddPerlinNoise()
         {
-            for(int i = 0; i < _height; i++) {
-                for(int j = 0; j < _width; j++) {
-                    var value = Math.Max(0.0f, Math.Min(1.0, (double)Perlin.Function2D(i, j) * 0.5f + 0.5f)) * 255;
+            for(int i = 0; i < _height; i++)
+            {
+                for(int j = 0; j < _width; j++)
+                {
+                    var value = Math.Max(0.0f, Math.Min(1.0, (double)Perlin.Function2D(i, j) * 0.5f + 0.5f));
+                    // from 0.0 - 1.0 to 0 - 255 byte data
+                    value = value * 255;
+                    // assign values at rgb positions
                     MapValues[i * _stride + j * 3] = (byte)value;
                     MapValues[i * _stride + j * 3 + 1] = (byte)value;
                     MapValues[i * _stride + j * 3 + 2] = (byte)value;
@@ -111,17 +88,19 @@ namespace HeightmapGenerator {
             bmp.UnlockBits(bmpData);
         }
 
-        public void AddPerlinNoiseThreaded()
+        private void AddPerlinNoiseThreaded()
         {
             int subDivs = (int)Math.Ceiling((double)_height / (Environment.ProcessorCount - 1));
-            for(int i = 0; i < Environment.ProcessorCount - 1; i++) {
+            for(int i = 0; i < Environment.ProcessorCount - 1; i++)
+            {
                 int startIndex = i * subDivs;
                 int endIndex = Math.Min(startIndex + subDivs, _height);
                 // fire up threads
                 _perlinWorker[i] = new Thread(() => CalculateSection(startIndex, endIndex));
                 _perlinWorker[i].Start();
             }
-            for(int i = 0; i < Environment.ProcessorCount - 1; i++) {
+            for(int i = 0; i < Environment.ProcessorCount - 1; i++)
+            {
                 _perlinWorker[i].Join();
             }
             // copy the data from the raw pixel array
@@ -132,9 +111,14 @@ namespace HeightmapGenerator {
 
         private void CalculateSection(int startIndex, int endIndex)
         {
-            for(int i = startIndex; i < endIndex; i++) {
-                for(int j = 0; j < _width; j++) {
-                    var value = Math.Max(0.0f, Math.Min(1.0, (double)Perlin.Function2D(i, j) * 0.5f + 0.5f)) * 255;
+            for(int i = startIndex; i < endIndex; i++)
+            {
+                for(int j = 0; j < _width; j++)
+                {
+                    var value = Math.Max(0.0f, Math.Min(1.0, (double)Perlin.Function2D(i, j) * 0.5f + 0.5f));
+                    // from 0.0 - 1.0 to 0 - 255 byte data
+                    value = value * 255;
+                    // assign values at rgb positions
                     MapValues[i * _stride + j * 3] = (byte)value;
                     MapValues[i * _stride + j * 3 + 1] = (byte)value;
                     MapValues[i * _stride + j * 3 + 2] = (byte)value;

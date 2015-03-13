@@ -61,10 +61,10 @@
             this.tableLayoutPanel2.AutoSize = true;
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(
-                                                        System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(
-                                                        System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent,
+                                                    100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute,
+                                                    20F));
             this.tableLayoutPanel2.Controls.Add(this.generateHeightmap, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.liveReload, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -72,8 +72,7 @@
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(
-                                                     System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(279, 29);
             this.tableLayoutPanel2.TabIndex = 1;
             //
@@ -86,8 +85,7 @@
             this.generateHeightmap.TabIndex = 1;
             this.generateHeightmap.Text = "Generate Heightmap";
             this.generateHeightmap.UseVisualStyleBackColor = true;
-            this.generateHeightmap.Click += new System.EventHandler(
-                                                this.generateHeightmap_Click);
+            this.generateHeightmap.Click += new System.EventHandler(this.generateHeightmap_Click);
             //
             // liveReload
             //
@@ -118,10 +116,10 @@
             //
             this.tableLayoutPanel5.AutoSize = true;
             this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(
-                                                        System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(
-                                                        System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute,
+                                                    75F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent,
+                                                    100F));
             this.tableLayoutPanel5.Controls.Add(this.label7, 0, 5);
             this.tableLayoutPanel5.Controls.Add(this.frequency, 1, 4);
             this.tableLayoutPanel5.Controls.Add(this.label8, 0, 4);
@@ -161,7 +159,8 @@
             //
             this.frequency.DecimalPlaces = 5;
             this.frequency.Dock = System.Windows.Forms.DockStyle.Top;
-            this.frequency.Increment = new decimal(new int[] {
+            this.frequency.Increment = new decimal(new int[]
+            {
                 1,
                 0,
                 0,
@@ -172,14 +171,14 @@
             this.frequency.Size = new System.Drawing.Size(192, 20);
             this.frequency.TabIndex = 9;
             this.frequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.frequency.Value = new decimal(new int[] {
+            this.frequency.Value = new decimal(new int[]
+            {
                 3125,
                 0,
                 0,
                 327680
             });
-            this.frequency.ValueChanged += new System.EventHandler(
-                                               this.generateHeightmap_OnChange);
+            this.frequency.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // label8
             //
@@ -195,7 +194,8 @@
             //
             this.persistence.DecimalPlaces = 5;
             this.persistence.Dock = System.Windows.Forms.DockStyle.Top;
-            this.persistence.Increment = new decimal(new int[] {
+            this.persistence.Increment = new decimal(new int[]
+            {
                 1,
                 0,
                 0,
@@ -206,14 +206,14 @@
             this.persistence.Size = new System.Drawing.Size(192, 20);
             this.persistence.TabIndex = 7;
             this.persistence.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.persistence.Value = new decimal(new int[] {
+            this.persistence.Value = new decimal(new int[]
+            {
                 5,
                 0,
                 0,
                 65536
             });
-            this.persistence.ValueChanged += new System.EventHandler(
-                                                 this.generateHeightmap_OnChange);
+            this.persistence.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // label9
             //
@@ -229,7 +229,15 @@
             //
             this.octaves.Dock = System.Windows.Forms.DockStyle.Top;
             this.octaves.Location = new System.Drawing.Point(78, 55);
-            this.octaves.Minimum = new decimal(new int[] {
+            this.octaves.Maximum = new decimal(new int[]
+            {
+                32,
+                0,
+                0,
+                0
+            });
+            this.octaves.Minimum = new decimal(new int[]
+            {
                 1,
                 0,
                 0,
@@ -239,14 +247,14 @@
             this.octaves.Size = new System.Drawing.Size(192, 20);
             this.octaves.TabIndex = 5;
             this.octaves.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.octaves.Value = new decimal(new int[] {
+            this.octaves.Value = new decimal(new int[]
+            {
                 6,
                 0,
                 0,
                 0
             });
-            this.octaves.ValueChanged += new System.EventHandler(
-                                             this.generateHeightmap_OnChange);
+            this.octaves.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // label10
             //
@@ -262,13 +270,15 @@
             //
             this.mapHeight.Dock = System.Windows.Forms.DockStyle.Top;
             this.mapHeight.Location = new System.Drawing.Point(78, 29);
-            this.mapHeight.Maximum = new decimal(new int[] {
+            this.mapHeight.Maximum = new decimal(new int[]
+            {
                 16384,
                 0,
                 0,
                 0
             });
-            this.mapHeight.Minimum = new decimal(new int[] {
+            this.mapHeight.Minimum = new decimal(new int[]
+            {
                 1,
                 0,
                 0,
@@ -278,14 +288,14 @@
             this.mapHeight.Size = new System.Drawing.Size(192, 20);
             this.mapHeight.TabIndex = 3;
             this.mapHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.mapHeight.Value = new decimal(new int[] {
+            this.mapHeight.Value = new decimal(new int[]
+            {
                 300,
                 0,
                 0,
                 0
             });
-            this.mapHeight.ValueChanged += new System.EventHandler(
-                                               this.generateHeightmap_OnChange);
+            this.mapHeight.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // label11
             //
@@ -311,13 +321,15 @@
             //
             this.mapWidth.Dock = System.Windows.Forms.DockStyle.Top;
             this.mapWidth.Location = new System.Drawing.Point(78, 3);
-            this.mapWidth.Maximum = new decimal(new int[] {
+            this.mapWidth.Maximum = new decimal(new int[]
+            {
                 16384,
                 0,
                 0,
                 0
             });
-            this.mapWidth.Minimum = new decimal(new int[] {
+            this.mapWidth.Minimum = new decimal(new int[]
+            {
                 1,
                 0,
                 0,
@@ -327,20 +339,21 @@
             this.mapWidth.Size = new System.Drawing.Size(192, 20);
             this.mapWidth.TabIndex = 1;
             this.mapWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.mapWidth.Value = new decimal(new int[] {
+            this.mapWidth.Value = new decimal(new int[]
+            {
                 300,
                 0,
                 0,
                 0
             });
-            this.mapWidth.ValueChanged += new System.EventHandler(
-                                              this.generateHeightmap_OnChange);
+            this.mapWidth.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // amplitude
             //
             this.amplitude.DecimalPlaces = 5;
             this.amplitude.Dock = System.Windows.Forms.DockStyle.Top;
-            this.amplitude.Increment = new decimal(new int[] {
+            this.amplitude.Increment = new decimal(new int[]
+            {
                 1,
                 0,
                 0,
@@ -351,14 +364,14 @@
             this.amplitude.Size = new System.Drawing.Size(192, 20);
             this.amplitude.TabIndex = 11;
             this.amplitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.amplitude.Value = new decimal(new int[] {
+            this.amplitude.Value = new decimal(new int[]
+            {
                 1,
                 0,
                 0,
                 0
             });
-            this.amplitude.ValueChanged += new System.EventHandler(
-                                               this.generateHeightmap_OnChange);
+            this.amplitude.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // PerlinNoiseEditor
             //

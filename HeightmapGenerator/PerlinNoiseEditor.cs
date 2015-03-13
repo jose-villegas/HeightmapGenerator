@@ -24,11 +24,8 @@ namespace HeightmapGenerator
 
         private void generateHeightmap_Click(object sender, EventArgs e)
         {
-            Heightmap heightmap = new Heightmap((int)mapWidth.Value, (int)mapHeight.Value,
-                                                (int)octaves.Value, (double)persistence.Value, (double)frequency.Value,
-                                                (double)amplitude.Value);
-            // save perlin noise to heightmap internal raw texture
-            heightmap.AddPerlinNoiseThreaded();
+            Heightmap heightmap = new Heightmap((int)mapWidth.Value, (int)mapHeight.Value, (int)octaves.Value,
+                                                (double)persistence.Value, (double)frequency.Value, (double)amplitude.Value, true);
             // show height map, set up new values
             this.heightmapPicture.Height = heightmap.Height;
             this.heightmapPicture.Width = heightmap.Width;

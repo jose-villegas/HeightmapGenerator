@@ -19,10 +19,8 @@ namespace HeightmapGenerator
         {
             InitializeComponent();
             // center picture box
-            this.heightmapPicture.Left = (this.heightmapPanel.ClientSize.Width -
-                                          this.heightmapPicture.Width) / 2;
-            this.heightmapPicture.Top = (this.heightmapPanel.ClientSize.Height -
-                                         this.heightmapPicture.Height) / 2;
+            this.heightmapPicture.Left = (this.heightmapPanel.ClientSize.Width - this.heightmapPicture.Width) / 2;
+            this.heightmapPicture.Top = (this.heightmapPanel.ClientSize.Height - this.heightmapPicture.Height) / 2;
             this.saveImageDialog.Filter =
                 "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|BMP File(*.BMP)|*.BMP|JPG File(*.JPG)|*.JPG|GIF File(*.GIF)|*.GIF|RAW File(*.RAW)|*.RAW";
         }
@@ -31,6 +29,9 @@ namespace HeightmapGenerator
         {
             if(this.saveImageDialog.ShowDialog() == DialogResult.OK)
             {
+                if(this.saveImageDialog.FilterIndex == 5)   // raw data
+                {
+                }
                 if(this.heightmapPicture.Image != null)
                 {
                     this.heightmapPicture.Image.Save(this.saveImageDialog.FileName);
@@ -43,15 +44,13 @@ namespace HeightmapGenerator
             PerlinNoiseEditor perlinEditor = new PerlinNoiseEditor();
             // assign picturebox for editing and show editor
             perlinEditor.heightmapPicture = this.heightmapPicture;
-            perlinEditor.ShowDialog();
+            perlinEditor.Show();
         }
 
         private void heightmapPicture_SizeChanged(object sender, EventArgs e)
         {
-            this.heightmapPicture.Left = (this.heightmapPanel.ClientSize.Width -
-                                          this.heightmapPicture.Width) / 2;
-            this.heightmapPicture.Top = (this.heightmapPanel.ClientSize.Height -
-                                         this.heightmapPicture.Height) / 2;
+            this.heightmapPicture.Left = (this.heightmapPanel.ClientSize.Width - this.heightmapPicture.Width) / 2;
+            this.heightmapPicture.Top = (this.heightmapPanel.ClientSize.Height - this.heightmapPicture.Height) / 2;
         }
     }
 }
