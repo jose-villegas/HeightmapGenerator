@@ -24,20 +24,14 @@ namespace HeightmapGenerator
 
         private void generateHeightmap_Click(object sender, EventArgs e)
         {
-            Heightmap heightmap = new Heightmap((int)mapWidth.Value, (int)mapHeight.Value, (int)octaves.Value,
-                                                (double)persistence.Value, (double)frequency.Value, (double)amplitude.Value, true);
+            Heightmap heightmap = Heightmap.Instance;
+            heightmap.SetDimensions((int)mapWidth.Value, (int)mapHeight.Value);
+            heightmap.PerlinNoiseThreaded((int)octaves.Value, (double)persistence.Value, (double)frequency.Value,
+                                          (double)amplitude.Value);
             // show height map, set up new values
             this.heightmapPicture.Height = heightmap.Height;
             this.heightmapPicture.Width = heightmap.Width;
             this.heightmapPicture.Image = heightmap.Texture;
-        }
-
-        private void generateHeightmap_OnChange(object sender, EventArgs e)
-        {
-            if(this.liveReload.Checked)
-            {
-                generateHeightmap_Click(sender, e);
-            }
         }
     }
 }

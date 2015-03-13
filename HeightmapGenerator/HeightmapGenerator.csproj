@@ -60,6 +60,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Heightmap.cs" />
+    <Compile Include="Noise.cs" />
     <Compile Include="PerlinNoiseEditor.cs">
       <SubType>Form</SubType>
     </Compile>

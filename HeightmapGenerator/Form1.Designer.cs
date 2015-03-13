@@ -33,11 +33,11 @@
             this.heightmapPicture = new System.Windows.Forms.PictureBox();
             this.generatorMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveHeightmapToolStripMenuItem = new
-            System.Windows.Forms.ToolStripMenuItem();
+            this.saveHeightmapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.perlinNoiseToolStripMenuItem = new
-            System.Windows.Forms.ToolStripMenuItem();
+            this.perlinNoiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.erodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gaussianBlurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heightmapPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapPicture)).BeginInit();
             this.generatorMenuStrip.SuspendLayout();
@@ -53,8 +53,7 @@
             this.heightmapPanel.Name = "heightmapPanel";
             this.heightmapPanel.Size = new System.Drawing.Size(970, 669);
             this.heightmapPanel.TabIndex = 5;
-            this.heightmapPanel.SizeChanged += new System.EventHandler(
-                                                   this.heightmapPicture_SizeChanged);
+            this.heightmapPanel.SizeChanged += new System.EventHandler(this.heightmapPicture_SizeChanged);
             //
             // heightmapPicture
             //
@@ -64,13 +63,12 @@
             this.heightmapPicture.Size = new System.Drawing.Size(300, 300);
             this.heightmapPicture.TabIndex = 0;
             this.heightmapPicture.TabStop = false;
-            this.heightmapPicture.SizeChanged += new System.EventHandler(
-                                                     this.heightmapPicture_SizeChanged);
+            this.heightmapPicture.SizeChanged += new System.EventHandler(this.heightmapPicture_SizeChanged);
             //
             // generatorMenuStrip
             //
-            this.generatorMenuStrip.Items.AddRange(new
-            System.Windows.Forms.ToolStripItem[] {
+            this.generatorMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[]
+            {
                 this.fileToolStripMenuItem,
                 this.editToolStripMenuItem
             });
@@ -82,8 +80,8 @@
             //
             // fileToolStripMenuItem
             //
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new
-            System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
+            {
                 this.saveHeightmapToolStripMenuItem
             });
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -95,14 +93,15 @@
             this.saveHeightmapToolStripMenuItem.Name = "saveHeightmapToolStripMenuItem";
             this.saveHeightmapToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.saveHeightmapToolStripMenuItem.Text = "Save Heightmap";
-            this.saveHeightmapToolStripMenuItem.Click += new System.EventHandler(
-                                                             this.saveHeightmap_Click);
+            this.saveHeightmapToolStripMenuItem.Click += new System.EventHandler(this.saveHeightmap_Click);
             //
             // editToolStripMenuItem
             //
-            this.editToolStripMenuItem.DropDownItems.AddRange(new
-            System.Windows.Forms.ToolStripItem[] {
-                this.perlinNoiseToolStripMenuItem
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
+            {
+                this.perlinNoiseToolStripMenuItem,
+                this.erodeToolStripMenuItem,
+                this.gaussianBlurToolStripMenuItem
             });
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -111,10 +110,23 @@
             // perlinNoiseToolStripMenuItem
             //
             this.perlinNoiseToolStripMenuItem.Name = "perlinNoiseToolStripMenuItem";
-            this.perlinNoiseToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.perlinNoiseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.perlinNoiseToolStripMenuItem.Text = "Perlin Noise";
-            this.perlinNoiseToolStripMenuItem.Click += new System.EventHandler(
-                                                           this.perlinNoiseToolStripMenuItem_Click);
+            this.perlinNoiseToolStripMenuItem.Click += new System.EventHandler(this.perlinNoiseToolStripMenuItem_Click);
+            //
+            // erodeToolStripMenuItem
+            //
+            this.erodeToolStripMenuItem.Name = "erodeToolStripMenuItem";
+            this.erodeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.erodeToolStripMenuItem.Text = "Erode";
+            this.erodeToolStripMenuItem.Click += new System.EventHandler(this.erodeToolStripMenuItem_Click);
+            //
+            // gaussianBlurToolStripMenuItem
+            //
+            this.gaussianBlurToolStripMenuItem.Name = "gaussianBlurToolStripMenuItem";
+            this.gaussianBlurToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gaussianBlurToolStripMenuItem.Text = "Gaussian Blur";
+            this.gaussianBlurToolStripMenuItem.Click += new System.EventHandler(this.gaussianBlurToolStripMenuItem_Click);
             //
             // mainWindow
             //
@@ -146,6 +158,8 @@
         private System.Windows.Forms.ToolStripMenuItem saveHeightmapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem perlinNoiseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem erodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gaussianBlurToolStripMenuItem;
 
     }
 }

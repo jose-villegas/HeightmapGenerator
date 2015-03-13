@@ -30,7 +30,6 @@
         {
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.generateHeightmap = new System.Windows.Forms.Button();
-            this.liveReload = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
@@ -59,14 +58,12 @@
             // tableLayoutPanel2
             //
             this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent,
                                                     100F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute,
                                                     20F));
-            this.tableLayoutPanel2.Controls.Add(this.generateHeightmap, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.liveReload, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.generateHeightmap, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 178);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
@@ -79,26 +76,13 @@
             // generateHeightmap
             //
             this.generateHeightmap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.generateHeightmap.Location = new System.Drawing.Point(92, 3);
+            this.generateHeightmap.Location = new System.Drawing.Point(3, 3);
             this.generateHeightmap.Name = "generateHeightmap";
-            this.generateHeightmap.Size = new System.Drawing.Size(184, 23);
-            this.generateHeightmap.TabIndex = 1;
+            this.generateHeightmap.Size = new System.Drawing.Size(273, 23);
+            this.generateHeightmap.TabIndex = 2;
             this.generateHeightmap.Text = "Generate Heightmap";
             this.generateHeightmap.UseVisualStyleBackColor = true;
             this.generateHeightmap.Click += new System.EventHandler(this.generateHeightmap_Click);
-            //
-            // liveReload
-            //
-            this.liveReload.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.liveReload.AutoSize = true;
-            this.liveReload.Checked = true;
-            this.liveReload.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.liveReload.Location = new System.Drawing.Point(3, 6);
-            this.liveReload.Name = "liveReload";
-            this.liveReload.Size = new System.Drawing.Size(83, 17);
-            this.liveReload.TabIndex = 2;
-            this.liveReload.Text = "Live Reload";
-            this.liveReload.UseVisualStyleBackColor = true;
             //
             // groupBox2
             //
@@ -178,7 +162,6 @@
                 0,
                 327680
             });
-            this.frequency.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // label8
             //
@@ -213,7 +196,6 @@
                 0,
                 65536
             });
-            this.persistence.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // label9
             //
@@ -254,7 +236,6 @@
                 0,
                 0
             });
-            this.octaves.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // label10
             //
@@ -295,7 +276,6 @@
                 0,
                 0
             });
-            this.mapHeight.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // label11
             //
@@ -346,7 +326,6 @@
                 0,
                 0
             });
-            this.mapWidth.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // amplitude
             //
@@ -371,7 +350,6 @@
                 0,
                 0
             });
-            this.amplitude.ValueChanged += new System.EventHandler(this.generateHeightmap_OnChange);
             //
             // PerlinNoiseEditor
             //
@@ -385,7 +363,6 @@
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Text = "Perlin Noise";
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -403,8 +380,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button generateHeightmap;
-        private System.Windows.Forms.CheckBox liveReload;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label label7;
@@ -419,5 +394,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.NumericUpDown mapWidth;
         private System.Windows.Forms.NumericUpDown amplitude;
+        private System.Windows.Forms.Button generateHeightmap;
     }
 }

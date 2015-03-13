@@ -22,16 +22,13 @@ namespace HeightmapGenerator
             this.heightmapPicture.Left = (this.heightmapPanel.ClientSize.Width - this.heightmapPicture.Width) / 2;
             this.heightmapPicture.Top = (this.heightmapPanel.ClientSize.Height - this.heightmapPicture.Height) / 2;
             this.saveImageDialog.Filter =
-                "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|BMP File(*.BMP)|*.BMP|JPG File(*.JPG)|*.JPG|GIF File(*.GIF)|*.GIF|RAW File(*.RAW)|*.RAW";
+                "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|BMP File(*.BMP)|*.BMP|JPG File(*.JPG)|*.JPG|GIF File(*.GIF)|*.GIF";
         }
 
         private void saveHeightmap_Click(object sender, EventArgs e)
         {
             if(this.saveImageDialog.ShowDialog() == DialogResult.OK)
             {
-                if(this.saveImageDialog.FilterIndex == 5)   // raw data
-                {
-                }
                 if(this.heightmapPicture.Image != null)
                 {
                     this.heightmapPicture.Image.Save(this.saveImageDialog.FileName);
@@ -51,6 +48,22 @@ namespace HeightmapGenerator
         {
             this.heightmapPicture.Left = (this.heightmapPanel.ClientSize.Width - this.heightmapPicture.Width) / 2;
             this.heightmapPicture.Top = (this.heightmapPanel.ClientSize.Height - this.heightmapPicture.Height) / 2;
+        }
+
+        private void erodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(this.heightmapPicture.Image == null) return;
+            // otherwise apply erosion to bitmap
+            Heightmap.Instance.Erode();
+            this.heightmapPicture.Image = Heightmap.Instance.Texture;
+        }
+
+        private void gaussianBlurToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(this.heightmapPicture.Image == null) return;
+            // otherwise apply erosion to bitmap
+            Heightmap.Instance.GaussianBlur();
+            this.heightmapPicture.Image = Heightmap.Instance.Texture;
         }
     }
 }
