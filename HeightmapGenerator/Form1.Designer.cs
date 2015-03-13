@@ -50,6 +50,7 @@
             this.generateHeightmap = new System.Windows.Forms.Button();
             this.liveReload = new System.Windows.Forms.CheckBox();
             this.saveHeightmap = new System.Windows.Forms.Button();
+            this.saveImageDialog = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.heightmapPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapPicture)).BeginInit();
@@ -407,6 +408,10 @@
             this.saveHeightmap.UseVisualStyleBackColor = true;
             this.saveHeightmap.Click += new System.EventHandler(this.saveHeightmap_Click);
             // 
+            // saveImageDialog
+            // 
+            this.saveImageDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF";
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -463,6 +468,7 @@
         private System.Windows.Forms.NumericUpDown amplitude;
         private System.Windows.Forms.Button saveHeightmap;
         private System.Windows.Forms.CheckBox liveReload;
+        private System.Windows.Forms.SaveFileDialog saveImageDialog;
 
     }
 }
