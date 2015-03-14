@@ -39,6 +39,7 @@ namespace HeightmapGenerator
             Heightmap heightmap = Heightmap.Instance;
             heightmap.SetDimensions((int)mapWidth.Value, (int)mapHeight.Value);
             int seed;
+
             if(this.enableSeed.Checked)
             {
                 seed = (int)seedVal.Value;
@@ -48,42 +49,64 @@ namespace HeightmapGenerator
                 seed = (new Random()).Next();
                 seedVal.Value = (Decimal)seed;
             }
+
             heightmap.DiffusionLimitedAgregation(seed, (float)(this.occupation.Value / this.occupation.Maximum),
                                                  (int)this.frequency.Value);
-            //// resulting bitmap
-            Bitmap bmp = (Bitmap)heightmap.Texture.Clone();
+
             // apply gaussian pass, multiple kernel sizes sum and normalize
             if(gaussianEnable.Checked)
             {
-                // create bitmap data and lockbits for fast writing
-                BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
-                // copy values from original diffuse limited, normalize the values
-                byte[] finalData = heightmap.MapValues.Select(t => (byte)(t * 1.0f / (float)(copyCount.Value + 1))).ToArray();
+                List<Bitmap> dlaCopies = new List<Bitmap>();
+                Bitmap dilatedBitmap = (Bitmap)heightmap.Texture.Clone();
+                AForge.Imaging.Filters.GaussianBlur gaussian = new AForge.Imaging.Filters.GaussianBlur(4.0, 21);
+                AForge.Imaging.Filters.BinaryDilatation3x3 dilatationFilter = new AForge.Imaging.Filters.BinaryDilatation3x3();
+
                 for(int i = 0; i < (int)copyCount.Value; i++)
                 {
-                    // apply filter
-                    AForge.Imaging.Filters.GaussianBlur gauss = new AForge.Imaging.Filters.GaussianBlur(1.4, 5 + i);
-                    Bitmap guss = gauss.Apply(heightmap.Texture);
-                    // lock bits for fast operations
-                    BitmapData gussData = guss.LockBits(new Rectangle(0, 0, guss.Width, guss.Height), ImageLockMode.ReadWrite,
-                                                        guss.PixelFormat);
-                    // copy raw pixel data
-                    byte[] gussRawData = new byte[gussData.Height * gussData.Stride];
-                    Marshal.Copy(gussData.Scan0, gussRawData, 0, gussData.Height * gussData.Stride);
-                    // operate on pixel data
-                    byte[] normalizedData = gussRawData.Select(t => (byte)(t * 1.0f / (float)(copyCount.Value + 1))).ToArray();
-                    finalData = finalData.Select((x, index) => (byte)(x + normalizedData[index])).ToArray();
-                    // unlock blurred bitmap
-                    guss.UnlockBits(gussData);
+                    // apply filter, first increasinly dilate the picture
+                    dilatedBitmap = dilatationFilter.Apply(dilatedBitmap);
+                    // then apply gaussian blur with an increasing radius size
+                    Bitmap blurredBitmap = (Bitmap)dilatedBitmap.Clone();
+
+                    for(int j = 0; j < (i * 3) + 1; j++)
+                    {
+                        blurredBitmap = gaussian.Apply(blurredBitmap);
+                    }
+
+                    dlaCopies.Add(blurredBitmap);
                 }
+
+                Bitmap bmp = heightmap.Texture;
+                BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
+                byte[] finalData = new byte[bmpData.Height * bmpData.Stride];
+
+                // sum average between all blurred pictures
+                for(int i = 0; i < (int)copyCount.Value; i++)
+                {
+                    // AForge.Imaging.Filters addFilter = new AForge.Imaging.Filters.Add(blurredBitmap);
+                    Bitmap current = dlaCopies[i];
+                    BitmapData currentData = current.LockBits(new Rectangle(0, 0, current.Width, current.Height), ImageLockMode.ReadOnly,
+                                             current.PixelFormat);
+                    byte[] currentRawData = new byte[currentData.Height * currentData.Stride];
+                    Marshal.Copy(currentData.Scan0, currentRawData, 0, currentData.Height * currentData.Stride);
+                    // lamba operation sums averages between blurred pictures
+                    finalData = currentRawData.Select((t, index) => (byte)
+                                                      (
+                                                          t * 1.0f / (float)copyCount.Value + finalData[index]
+                                                      )).ToArray();
+                }
+
+                // save final raw pixel data
                 Marshal.Copy(finalData, 0, bmpData.Scan0, finalData.Length);
                 bmp.UnlockBits(bmpData);
                 heightmap.Texture = bmp;
+                // heightmap.Texture = dlaCopies.Last();
             }
+
             // show height map, set up new values
             this.heightmapPicture.Height = heightmap.Height;
             this.heightmapPicture.Width = heightmap.Width;
-            this.heightmapPicture.Image = bmp;
+            this.heightmapPicture.Image = heightmap.Texture;
         }
     }
 }

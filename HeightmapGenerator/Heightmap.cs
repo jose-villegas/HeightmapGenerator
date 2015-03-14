@@ -64,11 +64,13 @@ namespace HeightmapGenerator
             Texture = new Bitmap(1, 1, PixelFormat.Format8bppIndexed);
             // gray scale palette
             Palette = Texture.Palette;
+
             for(int i = 0; i <= 255; i++)
             {
                 // create greyscale color table
                 Palette.Entries[i] = Color.FromArgb(i, i, i);
             }
+
             Texture.Palette = Palette; // re-set color palette
         }
 
@@ -81,6 +83,7 @@ namespace HeightmapGenerator
                 {
                     _instance = new Heightmap();
                 }
+
                 return _instance;
             }
         }
@@ -88,18 +91,24 @@ namespace HeightmapGenerator
         public void SetDimensions(int width, int height)
         {
             if(Texture != null && (Texture.Width == width && Texture.Height == height)) { _dimensionsChanged = false; return; };
+
             // create bitmap and reserve memory for raw pixel data
             Texture = new Bitmap(width, height, PixelFormat.Format8bppIndexed);
+
             Texture.Palette = Palette; // re-set color palette
+
             // set control for new dimensions
             _height = Texture.Height;
+
             _width = Texture.Width;
+
             _dimensionsChanged = true;
         }
 
         private void LockForWriting()
         {
             if(_bitsLocked) return;
+
             // create bitmap data and lockbits for fast writing
             bmpData = Texture.LockBits(new Rectangle(0, 0, Texture.Width, Texture.Height), ImageLockMode.WriteOnly,
                                        Texture.PixelFormat);
@@ -113,6 +122,7 @@ namespace HeightmapGenerator
         private void CopyToTexture()
         {
             if(MapValues == null && _bitsLocked) return;
+
             // copy the data from the raw pixel array
             Marshal.Copy(MapValues, 0, bmpData.Scan0, MapValues.Length);
         }
@@ -127,13 +137,16 @@ namespace HeightmapGenerator
         public void PerlinNoise(int octaves, double persistence, double initFrequency, double initAmplitude, bool threaded)
         {
             LockForWriting();
+
             // reserve for texture values
             if(_dimensionsChanged)
             {
                 MapValues = new byte[_height * _stride];
             }
+
             // not ready for writing
             if(MapValues == null || !_bitsLocked) return;
+
             // subdivide work betweek threads
             if(threaded)
             {
@@ -141,6 +154,7 @@ namespace HeightmapGenerator
                 int subDivs = (int)Math.Ceiling((double)_height / (Environment.ProcessorCount - 1));
                 // perlin function
                 Perlin = new AForge.Math.PerlinNoise(octaves, persistence, initFrequency, initAmplitude);
+
                 // assign work to threads
                 for(int i = 0; i < Environment.ProcessorCount - 1; i++)
                 {
@@ -150,6 +164,7 @@ namespace HeightmapGenerator
                     _perlinWorker[i] = new Thread(() => CalculateSection(startIndex, endIndex));
                     _perlinWorker[i].Start();
                 }
+
                 // wait for all threads to finish
                 for(int i = 0; i < Environment.ProcessorCount - 1; i++)
                 {
@@ -160,6 +175,7 @@ namespace HeightmapGenerator
             {
                 // perlin function
                 Perlin = new AForge.Math.PerlinNoise(octaves, persistence, initFrequency, initAmplitude);
+
                 // assign perlin noise value per pixel
                 for(int i = 0; i < _height; i++)
                 {
@@ -173,6 +189,7 @@ namespace HeightmapGenerator
                     }
                 }
             }
+
             CopyToTexture();
             Unlock();
         }
@@ -195,16 +212,20 @@ namespace HeightmapGenerator
         public void ImprovedPerlinNoise(float frequency, int seed)
         {
             LockForWriting();
+
             // reserve for texture values
             if(_dimensionsChanged)
             {
                 MapValues = new byte[_height * _stride];
             }
+
             // not ready for writing
             if(MapValues == null || !_bitsLocked) return;
+
             // seed the perlin noise
             Random rand = new Random(seed);
             float perlinSeed = (float)rand.NextDouble();
+
             // assign perlin noise value per pixel
             for(int i = 0; i < _height; i++)
             {
@@ -218,6 +239,7 @@ namespace HeightmapGenerator
                     this[i, j] = (byte)value;
                 }
             }
+
             CopyToTexture();
             Unlock();
         }
@@ -246,11 +268,14 @@ namespace HeightmapGenerator
         public void Perturb(float f, float d)
         {
             LockForWriting();
+
             // not ready for writing
             if(MapValues == null || !_bitsLocked) return;
+
             // temporal precomputed heightmap
             int u, v;
             byte[] temp = new byte[MapValues.Length];
+
             // assign perlin noise value per pixel
             for(int i = 0; i < _height; i++)
             {
@@ -258,13 +283,19 @@ namespace HeightmapGenerator
                 {
                     u = i + (int)(SimplexNoise.Noise.Generate(f * i / (float)_height, f * j / (float)_width, 0.0f) * d);
                     v = j + (int)(SimplexNoise.Noise.Generate(f * i / (float)_height, f * j / (float)_width, 1.0f) * d);
+
                     if(u < 0) u = 0;
+
                     if(u >= _height) u = _height - 1;
+
                     if(v < 0) v = 0;
+
                     if(v >= _width) v = _width - 1;
+
                     temp[i * _stride + j] = this[u, v];
                 }
             }
+
             MapValues = temp;
             CopyToTexture();
             Unlock();
@@ -279,6 +310,7 @@ namespace HeightmapGenerator
             public void Visit()
             {
                 Heightmap.Instance[x, y] += 1;
+
                 if(parent != null)
                 {
                     parent.Visit();
@@ -302,46 +334,61 @@ namespace HeightmapGenerator
             {
                 return;
             }
+
             LockForWriting();
             // reset values for fractal writing values
             MapValues = new byte[_height * _stride];
+
             // not ready for writing
             if(MapValues == null || !_bitsLocked) return;
+
             // start fractal
             Random rand = new Random(seed);
             Node[,] nodes = new Node[_width, _height];
+
             for(int i = 0; i < numberNodes; i++)
             {
                 nodes[rand.Next(_width), rand.Next(_height)] = new Node();
             }
-            int total = rand.Next(_width * _height - (int)(_width * _width * occupationPercent), _width * _height), x, y;
+
+            int total = rand.Next(_width * _height - (int)(_width * _width * occupationPercent), _width * _height);
+            int x, y;
+
             while(total < _width * _height)
             {
                 x = rand.Next(Width);
                 y = rand.Next(Height);
+
                 if(nodes[x, y] != null)
                 {
                     continue;
                 }
-                // random walk until hit something
+
                 bool hit = false;
+
+                // random walk until hit something
                 while(!hit)
                 {
                     int prevX = x;
                     int prevY = y;
                     int[] newValues = { rand.Next(-1, 2), rand.Next(-1, 2) };
+
                     if(newValues[0] == newValues[1] && newValues[0] == 0)
                     {
                         newValues[rand.Next(2)] = rand.Next(2) == 0 ? 1 : -1;
                     }
+
                     x += newValues[0];
                     y += newValues[1];
+
                     // out of bounds
                     if(x < 0 || y < 0 || y > Height - 1 || x > Width - 1)
                     {
                         break;
                     }
+
                     Node n = nodes[x, y];
+
                     if(n != null)
                     {
                         hit = true;
@@ -352,6 +399,7 @@ namespace HeightmapGenerator
                     }
                 }
             }
+
             CopyToTexture();
             Unlock();
         }

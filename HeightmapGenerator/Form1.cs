@@ -53,6 +53,7 @@ namespace HeightmapGenerator
         private void erodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(this.heightmapPicture.Image == null) return;
+
             // otherwise apply erosion to bitmap
             Heightmap.Instance.Erode();
             this.heightmapPicture.Image = Heightmap.Instance.Texture;
@@ -61,6 +62,7 @@ namespace HeightmapGenerator
         private void gaussianBlurToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(this.heightmapPicture.Image == null) return;
+
             // otherwise apply erosion to bitmap
             Heightmap.Instance.GaussianBlur();
             this.heightmapPicture.Image = Heightmap.Instance.Texture;
@@ -77,6 +79,7 @@ namespace HeightmapGenerator
         private void smoothingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(this.heightmapPicture.Image == null) return;
+
             // otherwise apply erosion to bitmap
             Heightmap.Instance.Smoothen();
             this.heightmapPicture.Image = Heightmap.Instance.Texture;
