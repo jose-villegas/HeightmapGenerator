@@ -36,8 +36,12 @@
             this.saveHeightmapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perlinNoiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.improvedPerlinNoiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.erodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gaussianBlurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smoothingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.perturbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.diffuseLimitedAgregationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heightmapPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapPicture)).BeginInit();
             this.generatorMenuStrip.SuspendLayout();
@@ -100,8 +104,12 @@
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
             {
                 this.perlinNoiseToolStripMenuItem,
+                this.improvedPerlinNoiseToolStripMenuItem,
                 this.erodeToolStripMenuItem,
-                this.gaussianBlurToolStripMenuItem
+                this.gaussianBlurToolStripMenuItem,
+                this.smoothingToolStripMenuItem,
+                this.perturbToolStripMenuItem,
+                this.diffuseLimitedAgregationToolStripMenuItem
             });
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -110,23 +118,53 @@
             // perlinNoiseToolStripMenuItem
             //
             this.perlinNoiseToolStripMenuItem.Name = "perlinNoiseToolStripMenuItem";
-            this.perlinNoiseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.perlinNoiseToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.perlinNoiseToolStripMenuItem.Text = "Perlin Noise";
             this.perlinNoiseToolStripMenuItem.Click += new System.EventHandler(this.perlinNoiseToolStripMenuItem_Click);
+            //
+            // improvedPerlinNoiseToolStripMenuItem
+            //
+            this.improvedPerlinNoiseToolStripMenuItem.Name = "improvedPerlinNoiseToolStripMenuItem";
+            this.improvedPerlinNoiseToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.improvedPerlinNoiseToolStripMenuItem.Text = "Improved Perlin Noise";
+            this.improvedPerlinNoiseToolStripMenuItem.Click += new System.EventHandler(
+                        this.improvedPerlinNoiseToolStripMenuItem_Click);
             //
             // erodeToolStripMenuItem
             //
             this.erodeToolStripMenuItem.Name = "erodeToolStripMenuItem";
-            this.erodeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.erodeToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.erodeToolStripMenuItem.Text = "Erode";
             this.erodeToolStripMenuItem.Click += new System.EventHandler(this.erodeToolStripMenuItem_Click);
             //
             // gaussianBlurToolStripMenuItem
             //
             this.gaussianBlurToolStripMenuItem.Name = "gaussianBlurToolStripMenuItem";
-            this.gaussianBlurToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gaussianBlurToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.gaussianBlurToolStripMenuItem.Text = "Gaussian Blur";
             this.gaussianBlurToolStripMenuItem.Click += new System.EventHandler(this.gaussianBlurToolStripMenuItem_Click);
+            //
+            // smoothingToolStripMenuItem
+            //
+            this.smoothingToolStripMenuItem.Name = "smoothingToolStripMenuItem";
+            this.smoothingToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.smoothingToolStripMenuItem.Text = "Smoothing";
+            this.smoothingToolStripMenuItem.Click += new System.EventHandler(this.smoothingToolStripMenuItem_Click);
+            //
+            // perturbToolStripMenuItem
+            //
+            this.perturbToolStripMenuItem.Name = "perturbToolStripMenuItem";
+            this.perturbToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.perturbToolStripMenuItem.Text = "Perturb";
+            this.perturbToolStripMenuItem.Click += new System.EventHandler(this.perturbToolStripMenuItem_Click);
+            //
+            // diffuseLimitedAgregationToolStripMenuItem
+            //
+            this.diffuseLimitedAgregationToolStripMenuItem.Name = "diffuseLimitedAgregationToolStripMenuItem";
+            this.diffuseLimitedAgregationToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.diffuseLimitedAgregationToolStripMenuItem.Text = "Diffuse Limited Aggregation";
+            this.diffuseLimitedAgregationToolStripMenuItem.Click += new System.EventHandler(
+                        this.diffuseLimitedAgregationToolStripMenuItem_Click);
             //
             // mainWindow
             //
@@ -160,6 +198,10 @@
         private System.Windows.Forms.ToolStripMenuItem perlinNoiseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem erodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gaussianBlurToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem improvedPerlinNoiseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smoothingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem perturbToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem diffuseLimitedAgregationToolStripMenuItem;
 
     }
 }

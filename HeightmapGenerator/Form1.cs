@@ -65,5 +65,37 @@ namespace HeightmapGenerator
             Heightmap.Instance.GaussianBlur();
             this.heightmapPicture.Image = Heightmap.Instance.Texture;
         }
+
+        private void improvedPerlinNoiseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImprovedPerlinEditor perlinEditor = new ImprovedPerlinEditor();
+            // assign picturebox for editing and show editor
+            perlinEditor.heightmapPicture = this.heightmapPicture;
+            perlinEditor.Show();
+        }
+
+        private void smoothingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(this.heightmapPicture.Image == null) return;
+            // otherwise apply erosion to bitmap
+            Heightmap.Instance.Smoothen();
+            this.heightmapPicture.Image = Heightmap.Instance.Texture;
+        }
+
+        private void perturbToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PerturbEditor perlinEditor = new PerturbEditor();
+            // assign picturebox for editing and show editor
+            perlinEditor.heightmapPicture = this.heightmapPicture;
+            perlinEditor.Show();
+        }
+
+        private void diffuseLimitedAgregationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DiffusionLimitedAgregationEditor editor = new DiffusionLimitedAgregationEditor();
+            // assign picturebox for editing and show editor
+            editor.heightmapPicture = this.heightmapPicture;
+            editor.Show();
+        }
     }
 }

@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiffusionLimitedAgregationEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiffusionLimitedAgregationEditor.Designer.cs">
+      <DependentUpon>DiffusionLimitedAgregationEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Heightmap.cs" />
+    <Compile Include="ImprovedPerlinEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImprovedPerlinEditor.Designer.cs">
+      <DependentUpon>ImprovedPerlinEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Noise.cs" />
     <Compile Include="PerlinNoiseEditor.cs">
       <SubType>Form</SubType>
@@ -67,13 +79,28 @@
     <Compile Include="PerlinNoiseEditor.Designer.cs">
       <DependentUpon>PerlinNoiseEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="PerturbEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerturbEditor.Designer.cs">
+      <DependentUpon>PerturbEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DiffusionLimitedAgregationEditor.resx">
+      <DependentUpon>DiffusionLimitedAgregationEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImprovedPerlinEditor.resx">
+      <DependentUpon>ImprovedPerlinEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PerlinNoiseEditor.resx">
       <DependentUpon>PerlinNoiseEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerturbEditor.resx">
+      <DependentUpon>PerturbEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

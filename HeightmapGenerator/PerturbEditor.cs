@@ -7,17 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Drawing.Imaging;
-using System.IO;
 
 namespace HeightmapGenerator
 {
-    public partial class PerlinNoiseEditor : Form
+    public partial class PerturbEditor : Form
     {
-        public PictureBox heightmapPicture { get; set; }
+        public PictureBox heightmapPicture;
 
-        public PerlinNoiseEditor()
+        public PerturbEditor()
         {
             InitializeComponent();
         }
@@ -25,9 +22,7 @@ namespace HeightmapGenerator
         private void generateHeightmap_Click(object sender, EventArgs e)
         {
             Heightmap heightmap = Heightmap.Instance;
-            heightmap.SetDimensions((int)mapWidth.Value, (int)mapHeight.Value);
-            heightmap.PerlinNoise((int)octaves.Value, (double)persistence.Value, (double)frequency.Value, (double)amplitude.Value,
-                                  true);
+            heightmap.Perturb((float)this.frequency.Value, (float)this.distance.Value);
             // show height map, set up new values
             this.heightmapPicture.Height = heightmap.Height;
             this.heightmapPicture.Width = heightmap.Width;
