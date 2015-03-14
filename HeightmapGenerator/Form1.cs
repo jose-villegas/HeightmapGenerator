@@ -100,5 +100,14 @@ namespace HeightmapGenerator
             editor.heightmapPicture = this.heightmapPicture;
             editor.Show();
         }
+
+        private void dilateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(this.heightmapPicture.Image == null) return;
+
+            // otherwise apply erosion to bitmap
+            Heightmap.Instance.Dilate();
+            this.heightmapPicture.Image = Heightmap.Instance.Texture;
+        }
     }
 }

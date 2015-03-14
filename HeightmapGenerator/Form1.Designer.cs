@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -42,6 +43,7 @@
             this.smoothingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perturbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diffuseLimitedAgregationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dilateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heightmapPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapPicture)).BeginInit();
             this.generatorMenuStrip.SuspendLayout();
@@ -106,6 +108,7 @@
                 this.perlinNoiseToolStripMenuItem,
                 this.improvedPerlinNoiseToolStripMenuItem,
                 this.erodeToolStripMenuItem,
+                this.dilateToolStripMenuItem,
                 this.gaussianBlurToolStripMenuItem,
                 this.smoothingToolStripMenuItem,
                 this.perturbToolStripMenuItem,
@@ -166,6 +169,13 @@
             this.diffuseLimitedAgregationToolStripMenuItem.Click += new System.EventHandler(
                         this.diffuseLimitedAgregationToolStripMenuItem_Click);
             //
+            // dilateToolStripMenuItem
+            //
+            this.dilateToolStripMenuItem.Name = "dilateToolStripMenuItem";
+            this.dilateToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.dilateToolStripMenuItem.Text = "Dilate";
+            this.dilateToolStripMenuItem.Click += new System.EventHandler(this.dilateToolStripMenuItem_Click);
+            //
             // mainWindow
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,6 +212,7 @@
         private System.Windows.Forms.ToolStripMenuItem smoothingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem perturbToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem diffuseLimitedAgregationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dilateToolStripMenuItem;
 
     }
 }

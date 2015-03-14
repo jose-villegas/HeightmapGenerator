@@ -55,7 +55,7 @@ namespace HeightmapGenerator
             }
             set
             {
-                MapValues[i * _stride + j] = (byte)Math.Max(0, Math.Min((int)value, 255));
+                MapValues[i * _stride + j] = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
             }
         }
 
@@ -249,6 +249,13 @@ namespace HeightmapGenerator
             // apply filter
             AForge.Imaging.Filters.Erosion erosion = new AForge.Imaging.Filters.Erosion();
             Texture = erosion.Apply(this.Texture);
+        }
+
+        public void Dilate()
+        {
+            // apply filter
+            AForge.Imaging.Filters.Dilatation dilation = new AForge.Imaging.Filters.Dilatation();
+            Texture = dilation.Apply(this.Texture);
         }
 
         public void GaussianBlur()
