@@ -3,7 +3,7 @@ Generates heightmap textures using different techniques
 
 Diffusion Limited Aggregation, 6 Blur Pass + Noise
 
-![Screenshot](https://raw.githubusercontent.com/jose-villegas/HeightmapGenerator/master/HeightmapGenerator/Resources/dla_5.BMP)![Screenshot](https://raw.githubusercontent.com/jose-villegas/HeightmapGenerator/master/HeightmapGenerator/Resources/dla_5_render.BMP)
+![Screenshot](https://raw.githubusercontent.com/jose-villegas/HeightmapGenerator/master/HeightmapGenerator/Resources/dla_5.BMP)![Screenshot](https://raw.githubusercontent.com/jose-villegas/HeightmapGenerator/master/HeightmapGenerator/Resources/dla_5_render.png)
 
 Diffusion Limited Aggregation, 6 Blur Pass + Noise
 
