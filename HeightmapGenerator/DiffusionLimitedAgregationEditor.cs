@@ -87,12 +87,13 @@ namespace HeightmapGenerator
                     dlaCopies.Add(blurredBitmap);
                 }
 
-                Bitmap bmp = heightmap.Texture;
+                // normalize all blurred heightmaps
+                Bitmap bmp = (Bitmap)heightmap.Texture.Clone();
                 BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
                 byte[] finalData = new byte[bmpData.Height * bmpData.Stride];
 
                 // sum average between all blurred pictures
-                for(int i = 0; i < (int)copyCount.Value; i++)
+                for(int i = 0; i < dlaCopies.Count; i++)
                 {
                     // AForge.Imaging.Filters addFilter = new AForge.Imaging.Filters.Add(blurredBitmap);
                     Bitmap current = dlaCopies[i];
@@ -103,22 +104,50 @@ namespace HeightmapGenerator
                     // lamba operation sums averages between blurred pictures
                     Parallel.For(0, currentRawData.Length, index =>
                     {
-                        finalData[index] = (byte)(currentRawData[index] * 1.0f / (float)copyCount.Value + finalData[index]);
+                        finalData[index] = (byte)(currentRawData[index] * 1.0f / (float)dlaCopies.Count + finalData[index]);
                     });
                 }
 
                 // save final raw pixel data
                 Marshal.Copy(finalData, 0, bmpData.Scan0, finalData.Length);
                 bmp.UnlockBits(bmpData);
+                // store final values on heightmap
                 heightmap.MapValues = finalData;
                 heightmap.Texture = bmp;
-                // heightmap.Texture = dlaCopies.Last();
             }
 
             // show height map, set up new values
             this.heightmapPicture.Height = heightmap.Height;
             this.heightmapPicture.Width = heightmap.Width;
             this.heightmapPicture.Image = heightmap.Texture;
+        }
+
+        private Bitmap NoiseTexture(int seed, int fraction)
+        {
+            Bitmap finalNoise = new Bitmap(300, 300, PixelFormat.Format24bppRgb);
+            BitmapData finalDataNoise = finalNoise.LockBits(new Rectangle(0, 0, finalNoise.Width, finalNoise.Height),
+                                        ImageLockMode.WriteOnly, finalNoise.PixelFormat);
+            byte[] finalRawData = new byte[finalDataNoise.Height * finalDataNoise.Stride];
+            Marshal.Copy(finalDataNoise.Scan0, finalRawData, 0, finalDataNoise.Height * finalDataNoise.Stride);
+            // write noise
+            Random rand = new Random(seed);
+            float perlinSeed = (float)rand.NextDouble();
+            int height = finalDataNoise.Height, width = finalDataNoise.Width, stride = finalDataNoise.Stride;
+            Parallel.For(0, height, i =>
+            {
+                for(int j = 0; j < width; j++)
+                {
+                    var value = (byte)((SimplexNoise.Noise.Generate(5.0f * i / (float)height, 5.0f * j / (float)width,
+                                        perlinSeed) * 0.5 + 0.5) * fraction);
+                    value = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
+                    finalRawData[i * stride + j * 3] = value;
+                    finalRawData[i * stride + j * 3 + 1] = value;
+                    finalRawData[i * stride + j * 3 + 2] = value;
+                }
+            });
+            Marshal.Copy(finalRawData, 0, finalDataNoise.Scan0, finalRawData.Length);
+            finalNoise.UnlockBits(finalDataNoise);
+            return finalNoise;
         }
     }
 }
