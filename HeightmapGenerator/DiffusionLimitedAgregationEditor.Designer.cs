@@ -48,6 +48,16 @@
             this.noiseEnabled = new System.Windows.Forms.CheckBox();
             this.radialBlur = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.perlinFreq = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.perlinPersistence = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.perlinOctaves = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.perlinAmplitude = new System.Windows.Forms.NumericUpDown();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.copyCount)).BeginInit();
@@ -57,6 +67,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.seedVal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.occupation)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.perlinFreq)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perlinPersistence)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perlinOctaves)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perlinAmplitude)).BeginInit();
             this.SuspendLayout();
             //
             // groupBox2
@@ -326,7 +342,7 @@
             // generateHeightmap
             //
             this.generateHeightmap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.generateHeightmap.Location = new System.Drawing.Point(0, 219);
+            this.generateHeightmap.Location = new System.Drawing.Point(0, 342);
             this.generateHeightmap.Margin = new System.Windows.Forms.Padding(5);
             this.generateHeightmap.Name = "generateHeightmap";
             this.generateHeightmap.Size = new System.Drawing.Size(238, 24);
@@ -353,15 +369,14 @@
             // noiseEnabled
             //
             this.noiseEnabled.AutoSize = true;
-            this.noiseEnabled.Checked = true;
-            this.noiseEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.noiseEnabled.Dock = System.Windows.Forms.DockStyle.Left;
-            this.noiseEnabled.Location = new System.Drawing.Point(127, 16);
+            this.noiseEnabled.Dock = System.Windows.Forms.DockStyle.Right;
+            this.noiseEnabled.Location = new System.Drawing.Point(160, 16);
             this.noiseEnabled.Name = "noiseEnabled";
             this.noiseEnabled.Size = new System.Drawing.Size(75, 25);
             this.noiseEnabled.TabIndex = 6;
             this.noiseEnabled.Text = "Add Noise";
             this.noiseEnabled.UseVisualStyleBackColor = true;
+            this.noiseEnabled.CheckedChanged += new System.EventHandler(this.noiseEnabled_CheckedChanged);
             //
             // radialBlur
             //
@@ -387,12 +402,198 @@
             this.radioButton2.Text = "Gaussian";
             this.radioButton2.UseVisualStyleBackColor = true;
             //
+            // groupBox3
+            //
+            this.groupBox3.AutoSize = true;
+            this.groupBox3.Controls.Add(this.tableLayoutPanel1);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox3.Enabled = false;
+            this.groupBox3.Location = new System.Drawing.Point(0, 219);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(238, 123);
+            this.groupBox3.TabIndex = 7;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Perlin Parameters";
+            this.groupBox3.Visible = false;
+            //
+            // tableLayoutPanel1
+            //
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute,
+                                                    75F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent,
+                                                    100F));
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.perlinFreq, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.perlinPersistence, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.perlinOctaves, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.perlinAmplitude, 1, 3);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(232, 104);
+            this.tableLayoutPanel1.TabIndex = 0;
+            //
+            // label7
+            //
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 84);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Amplitude";
+            //
+            // perlinFreq
+            //
+            this.perlinFreq.DecimalPlaces = 5;
+            this.perlinFreq.Dock = System.Windows.Forms.DockStyle.Top;
+            this.perlinFreq.Increment = new decimal(new int[]
+            {
+                1,
+                0,
+                0,
+                196608
+            });
+            this.perlinFreq.Location = new System.Drawing.Point(78, 55);
+            this.perlinFreq.Name = "perlinFreq";
+            this.perlinFreq.Size = new System.Drawing.Size(151, 20);
+            this.perlinFreq.TabIndex = 9;
+            this.perlinFreq.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.perlinFreq.Value = new decimal(new int[]
+            {
+                15625,
+                0,
+                0,
+                393216
+            });
+            //
+            // label2
+            //
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 58);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Frequency";
+            //
+            // perlinPersistence
+            //
+            this.perlinPersistence.DecimalPlaces = 5;
+            this.perlinPersistence.Dock = System.Windows.Forms.DockStyle.Top;
+            this.perlinPersistence.Increment = new decimal(new int[]
+            {
+                1,
+                0,
+                0,
+                131072
+            });
+            this.perlinPersistence.Location = new System.Drawing.Point(78, 29);
+            this.perlinPersistence.Name = "perlinPersistence";
+            this.perlinPersistence.Size = new System.Drawing.Size(151, 20);
+            this.perlinPersistence.TabIndex = 7;
+            this.perlinPersistence.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.perlinPersistence.Value = new decimal(new int[]
+            {
+                35,
+                0,
+                0,
+                131072
+            });
+            //
+            // label9
+            //
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 32);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 13);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Persistence";
+            //
+            // perlinOctaves
+            //
+            this.perlinOctaves.Dock = System.Windows.Forms.DockStyle.Top;
+            this.perlinOctaves.Location = new System.Drawing.Point(78, 3);
+            this.perlinOctaves.Maximum = new decimal(new int[]
+            {
+                32,
+                0,
+                0,
+                0
+            });
+            this.perlinOctaves.Minimum = new decimal(new int[]
+            {
+                1,
+                0,
+                0,
+                0
+            });
+            this.perlinOctaves.Name = "perlinOctaves";
+            this.perlinOctaves.Size = new System.Drawing.Size(151, 20);
+            this.perlinOctaves.TabIndex = 5;
+            this.perlinOctaves.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.perlinOctaves.Value = new decimal(new int[]
+            {
+                6,
+                0,
+                0,
+                0
+            });
+            //
+            // label10
+            //
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 6);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(47, 13);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Octaves";
+            //
+            // perlinAmplitude
+            //
+            this.perlinAmplitude.DecimalPlaces = 5;
+            this.perlinAmplitude.Dock = System.Windows.Forms.DockStyle.Top;
+            this.perlinAmplitude.Increment = new decimal(new int[]
+            {
+                1,
+                0,
+                0,
+                65536
+            });
+            this.perlinAmplitude.Location = new System.Drawing.Point(78, 81);
+            this.perlinAmplitude.Name = "perlinAmplitude";
+            this.perlinAmplitude.Size = new System.Drawing.Size(151, 20);
+            this.perlinAmplitude.TabIndex = 11;
+            this.perlinAmplitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.perlinAmplitude.Value = new decimal(new int[]
+            {
+                15,
+                0,
+                0,
+                65536
+            });
+            //
             // DiffusionLimitedAgregationEditor
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 244);
+            this.ClientSize = new System.Drawing.Size(238, 366);
             this.Controls.Add(this.generateHeightmap);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -410,6 +611,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.occupation)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.perlinFreq)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perlinPersistence)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perlinOctaves)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perlinAmplitude)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -435,5 +644,15 @@
         private System.Windows.Forms.CheckBox noiseEnabled;
         private System.Windows.Forms.RadioButton radialBlur;
         private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown perlinFreq;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown perlinPersistence;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown perlinOctaves;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown perlinAmplitude;
     }
 }

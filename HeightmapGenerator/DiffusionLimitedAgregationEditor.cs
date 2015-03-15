@@ -23,6 +23,7 @@ namespace HeightmapGenerator
             InitializeComponent();
             this.seedVal.Maximum = int.MaxValue;
             this.seedVal.Minimum = int.MinValue;
+            this.Height -= this.groupBox3.Height;
         }
 
         private void enableSeed_CheckedChanged(object sender, EventArgs e)
@@ -88,7 +89,8 @@ namespace HeightmapGenerator
                 }
 
                 // add noise to final texture collections
-                if(noiseEnabled.Checked) dlaCopies.Add(NoiseTexture(seed, 255));
+                if(noiseEnabled.Checked) dlaCopies.Add(NoiseTexture((int)perlinOctaves.Value, (double)perlinPersistence.Value,
+                                                           (double)perlinFreq.Value, (double)perlinAmplitude.Value));
 
                 // normalize all blurred heightmaps
                 Bitmap bmp = (Bitmap)heightmap.Texture.Clone();
@@ -125,23 +127,21 @@ namespace HeightmapGenerator
             this.heightmapPicture.Image = heightmap.Texture;
         }
 
-        private Bitmap NoiseTexture(int seed, int fraction)
+        private Bitmap NoiseTexture(int octaves, double persistence, double initFrequency, double initAmplitude)
         {
-            Bitmap finalNoise = new Bitmap(300, 300, PixelFormat.Format24bppRgb);
+            Bitmap finalNoise = new Bitmap(Heightmap.Instance.Width, Heightmap.Instance.Height, PixelFormat.Format24bppRgb);
             BitmapData finalDataNoise = finalNoise.LockBits(new Rectangle(0, 0, finalNoise.Width, finalNoise.Height),
                                         ImageLockMode.WriteOnly, finalNoise.PixelFormat);
             byte[] finalRawData = new byte[finalDataNoise.Height * finalDataNoise.Stride];
             Marshal.Copy(finalDataNoise.Scan0, finalRawData, 0, finalDataNoise.Height * finalDataNoise.Stride);
             // write noise
-            Random rand = new Random(seed);
-            float perlinSeed = (float)rand.NextDouble();
+            AForge.Math.PerlinNoise noise = new AForge.Math.PerlinNoise(octaves, persistence, initFrequency, initAmplitude);
             int height = finalDataNoise.Height, width = finalDataNoise.Width, stride = finalDataNoise.Stride;
             Parallel.For(0, height, i =>
             {
                 for(int j = 0; j < width; j++)
                 {
-                    var value = (byte)((SimplexNoise.Noise.Generate(5.0f * i / (float)height, 5.0f * j / (float)width,
-                                        perlinSeed) * 0.5 + 0.5) * fraction);
+                    var value = (byte)(Math.Max(0.0f, Math.Min(1.0f, (float)noise.Function2D(i, j) * 0.5f + 0.5f)) * 255);
                     value = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
                     finalRawData[i * stride + j * 3] = value;
                     finalRawData[i * stride + j * 3 + 1] = value;
@@ -151,6 +151,20 @@ namespace HeightmapGenerator
             Marshal.Copy(finalRawData, 0, finalDataNoise.Scan0, finalRawData.Length);
             finalNoise.UnlockBits(finalDataNoise);
             return finalNoise;
+        }
+
+        private void noiseEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            this.groupBox3.Visible = this.groupBox3.Enabled = this.noiseEnabled.Checked;
+
+            if(this.noiseEnabled.Checked)
+            {
+                this.Size = new Size(254, 405);
+            }
+            else
+            {
+                this.Size = new Size(254, 405 - this.groupBox3.Height);
+            }
         }
     }
 }
