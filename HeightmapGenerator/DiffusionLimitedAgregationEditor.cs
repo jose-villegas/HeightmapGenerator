@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace HeightmapGenerator
 {
+
     public partial class DiffusionLimitedAgregationEditor : Form
     {
         public PictureBox heightmapPicture;
@@ -19,7 +21,6 @@ namespace HeightmapGenerator
         public DiffusionLimitedAgregationEditor()
         {
             InitializeComponent();
-            this.seedVal.Enabled = this.copyCount.Enabled = false;
             this.seedVal.Maximum = int.MaxValue;
             this.seedVal.Minimum = int.MinValue;
         }
@@ -32,6 +33,7 @@ namespace HeightmapGenerator
         private void gaussianEnable_CheckedChanged(object sender, EventArgs e)
         {
             this.copyCount.Enabled = this.gaussianEnable.Checked;
+            this.groupBox1.Enabled = this.gaussianEnable.Checked;
         }
 
         private void generateHeightmap_Click(object sender, EventArgs e)
@@ -59,7 +61,8 @@ namespace HeightmapGenerator
                 List<Bitmap> dlaCopies = new List<Bitmap>();
                 Bitmap dilatedBitmap = (Bitmap)heightmap.Texture.Clone();
                 AForge.Imaging.Filters.GaussianBlur gaussian = new AForge.Imaging.Filters.GaussianBlur(4.0, 21);
-                AForge.Imaging.Filters.BinaryDilatation3x3 dilatationFilter = new AForge.Imaging.Filters.BinaryDilatation3x3();
+                AForge.Imaging.Filters.Dilatation dilatationFilter = new AForge.Imaging.Filters.Dilatation();
+                GaussianBlur gaus = new GaussianBlur(2);
 
                 for(int i = 0; i < (int)copyCount.Value; i++)
                 {
@@ -68,9 +71,17 @@ namespace HeightmapGenerator
                     // then apply gaussian blur with an increasing radius size
                     Bitmap blurredBitmap = (Bitmap)dilatedBitmap.Clone();
 
-                    for(int j = 0; j < (i * 3) + 1; j++)
+                    if(radialBlur.Checked)
                     {
-                        blurredBitmap = gaussian.Apply(blurredBitmap);
+                        for(int j = 0; j < (i * 3) + 1; j++)
+                        {
+                            blurredBitmap = gaussian.Apply(blurredBitmap);
+                        }
+                    }
+                    else
+                    {
+                        gaus.Radius = (int)Math.Pow(2, i + 1);
+                        blurredBitmap = gaus.ProcessImage(blurredBitmap);
                     }
 
                     dlaCopies.Add(blurredBitmap);
@@ -90,15 +101,16 @@ namespace HeightmapGenerator
                     byte[] currentRawData = new byte[currentData.Height * currentData.Stride];
                     Marshal.Copy(currentData.Scan0, currentRawData, 0, currentData.Height * currentData.Stride);
                     // lamba operation sums averages between blurred pictures
-                    finalData = currentRawData.Select((t, index) => (byte)
-                                                      (
-                                                          t * 1.0f / (float)copyCount.Value + finalData[index]
-                                                      )).ToArray();
+                    Parallel.For(0, currentRawData.Length, index =>
+                    {
+                        finalData[index] = (byte)(currentRawData[index] * 1.0f / (float)copyCount.Value + finalData[index]);
+                    });
                 }
 
                 // save final raw pixel data
                 Marshal.Copy(finalData, 0, bmpData.Scan0, finalData.Length);
                 bmp.UnlockBits(bmpData);
+                heightmap.MapValues = finalData;
                 heightmap.Texture = bmp;
                 // heightmap.Texture = dlaCopies.Last();
             }

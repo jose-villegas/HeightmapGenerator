@@ -51,27 +51,33 @@ namespace HeightmapGenerator
         {
             get
             {
-                return MapValues[i * _stride + j];
+                return MapValues[i * _stride + j * 3];
             }
             set
             {
-                MapValues[i * _stride + j] = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
+                MapValues[i * _stride + j * 3] = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
+                MapValues[i * _stride + j * 3 + 1] = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
+                MapValues[i * _stride + j * 3 + 2] = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
             }
         }
 
         private Heightmap()
         {
-            Texture = new Bitmap(1, 1, PixelFormat.Format8bppIndexed);
+            Texture = new Bitmap(1, 1, PixelFormat.Format24bppRgb);
+
             // gray scale palette
-            Palette = Texture.Palette;
-
-            for(int i = 0; i <= 255; i++)
+            if(Texture.PixelFormat == PixelFormat.Format8bppIndexed)
             {
-                // create greyscale color table
-                Palette.Entries[i] = Color.FromArgb(i, i, i);
-            }
+                Palette = Texture.Palette;
 
-            Texture.Palette = Palette; // re-set color palette
+                for(int i = 0; i <= 255; i++)
+                {
+                    // create greyscale color table
+                    Palette.Entries[i] = Color.FromArgb(i, i, i);
+                }
+
+                Texture.Palette = Palette; // re-set color palette
+            }
         }
 
         // singleton pattern
@@ -93,15 +99,17 @@ namespace HeightmapGenerator
             if(Texture != null && (Texture.Width == width && Texture.Height == height)) { _dimensionsChanged = false; return; };
 
             // create bitmap and reserve memory for raw pixel data
-            Texture = new Bitmap(width, height, PixelFormat.Format8bppIndexed);
+            Texture = new Bitmap(width, height, Texture.PixelFormat);
 
-            Texture.Palette = Palette; // re-set color palette
+            // gray scale palette
+            if(Texture.PixelFormat == PixelFormat.Format8bppIndexed)
+            {
+                Texture.Palette = Palette; // re-set color palette
+            }
 
             // set control for new dimensions
             _height = Texture.Height;
-
             _width = Texture.Width;
-
             _dimensionsChanged = true;
         }
 
@@ -272,6 +280,13 @@ namespace HeightmapGenerator
             Texture = smoothing.Apply(this.Texture);
         }
 
+        public void SetPixel(byte[] rawData, int i, int j, byte value)
+        {
+            rawData[i * _stride + j * 3] = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
+            rawData[i * _stride + j * 3 + 1] = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
+            rawData[i * _stride + j * 3 + 2] = (byte)((value < 0) ? 0 : (value > 255) ? 255 : value);
+        }
+
         public void Perturb(float f, float d)
         {
             LockForWriting();
@@ -299,7 +314,7 @@ namespace HeightmapGenerator
 
                     if(v >= _width) v = _width - 1;
 
-                    temp[i * _stride + j] = this[u, v];
+                    SetPixel(temp, i, j, this[u, v]);
                 }
             }
 

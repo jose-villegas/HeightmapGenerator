@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -29,6 +30,11 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.generateHeightmap = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radialBlur = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.gaussianEnable = new System.Windows.Forms.CheckBox();
             this.copyCount = new System.Windows.Forms.NumericUpDown();
@@ -42,9 +48,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.seedVal = new System.Windows.Forms.NumericUpDown();
             this.occupation = new System.Windows.Forms.NumericUpDown();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.generateHeightmap = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.copyCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.frequency)).BeginInit();
@@ -52,7 +58,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.mapWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seedVal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.occupation)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             //
             // groupBox2
@@ -63,10 +68,76 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(328, 204);
+            this.groupBox2.Size = new System.Drawing.Size(260, 252);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Parameters";
+            //
+            // tableLayoutPanel2
+            //
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent,
+                                                    100F));
+            this.tableLayoutPanel2.Controls.Add(this.generateHeightmap, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 172);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(254, 77);
+            this.tableLayoutPanel2.TabIndex = 5;
+            //
+            // generateHeightmap
+            //
+            this.generateHeightmap.Dock = System.Windows.Forms.DockStyle.Top;
+            this.generateHeightmap.Location = new System.Drawing.Point(3, 51);
+            this.generateHeightmap.Name = "generateHeightmap";
+            this.generateHeightmap.Size = new System.Drawing.Size(248, 23);
+            this.generateHeightmap.TabIndex = 2;
+            this.generateHeightmap.Text = "Generate Heightmap";
+            this.generateHeightmap.UseVisualStyleBackColor = true;
+            this.generateHeightmap.Click += new System.EventHandler(this.generateHeightmap_Click);
+            //
+            // groupBox1
+            //
+            this.groupBox1.Controls.Add(this.radialBlur);
+            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Enabled = false;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(248, 42);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Blur Type";
+            //
+            // radialBlur
+            //
+            this.radialBlur.AutoSize = true;
+            this.radialBlur.Checked = true;
+            this.radialBlur.Dock = System.Windows.Forms.DockStyle.Right;
+            this.radialBlur.Location = new System.Drawing.Point(190, 16);
+            this.radialBlur.Name = "radialBlur";
+            this.radialBlur.Size = new System.Drawing.Size(55, 23);
+            this.radialBlur.TabIndex = 0;
+            this.radialBlur.TabStop = true;
+            this.radialBlur.Text = "Radial";
+            this.radialBlur.UseVisualStyleBackColor = true;
+            //
+            // radioButton2
+            //
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButton2.Location = new System.Drawing.Point(3, 16);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(69, 23);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.Text = "Gaussian";
+            this.radioButton2.UseVisualStyleBackColor = true;
             //
             // tableLayoutPanel5
             //
@@ -98,24 +169,25 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(322, 156);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(254, 156);
             this.tableLayoutPanel5.TabIndex = 0;
             //
             // gaussianEnable
             //
             this.gaussianEnable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gaussianEnable.AutoSize = true;
-            this.gaussianEnable.Location = new System.Drawing.Point(6, 134);
+            this.gaussianEnable.Location = new System.Drawing.Point(19, 134);
             this.gaussianEnable.Name = "gaussianEnable";
-            this.gaussianEnable.Size = new System.Drawing.Size(96, 17);
+            this.gaussianEnable.Size = new System.Drawing.Size(70, 17);
             this.gaussianEnable.TabIndex = 15;
-            this.gaussianEnable.Text = "Gaussian Pass";
+            this.gaussianEnable.Text = "Blur Pass";
             this.gaussianEnable.UseVisualStyleBackColor = true;
             this.gaussianEnable.CheckedChanged += new System.EventHandler(this.gaussianEnable_CheckedChanged);
             //
             // copyCount
             //
             this.copyCount.Dock = System.Windows.Forms.DockStyle.Top;
+            this.copyCount.Enabled = false;
             this.copyCount.Location = new System.Drawing.Point(111, 133);
             this.copyCount.Maximum = new decimal(new int[]
             {
@@ -132,7 +204,7 @@
                 0
             });
             this.copyCount.Name = "copyCount";
-            this.copyCount.Size = new System.Drawing.Size(208, 20);
+            this.copyCount.Size = new System.Drawing.Size(140, 20);
             this.copyCount.TabIndex = 16;
             this.copyCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.copyCount.Value = new decimal(new int[]
@@ -162,7 +234,7 @@
                 0
             });
             this.frequency.Name = "frequency";
-            this.frequency.Size = new System.Drawing.Size(208, 20);
+            this.frequency.Size = new System.Drawing.Size(140, 20);
             this.frequency.TabIndex = 9;
             this.frequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.frequency.Value = new decimal(new int[]
@@ -202,7 +274,7 @@
                 0
             });
             this.mapHeight.Name = "mapHeight";
-            this.mapHeight.Size = new System.Drawing.Size(208, 20);
+            this.mapHeight.Size = new System.Drawing.Size(140, 20);
             this.mapHeight.TabIndex = 3;
             this.mapHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.mapHeight.Value = new decimal(new int[]
@@ -252,7 +324,7 @@
                 0
             });
             this.mapWidth.Name = "mapWidth";
-            this.mapWidth.Size = new System.Drawing.Size(208, 20);
+            this.mapWidth.Size = new System.Drawing.Size(140, 20);
             this.mapWidth.TabIndex = 1;
             this.mapWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.mapWidth.Value = new decimal(new int[]
@@ -288,9 +360,10 @@
             // seedVal
             //
             this.seedVal.Dock = System.Windows.Forms.DockStyle.Top;
+            this.seedVal.Enabled = false;
             this.seedVal.Location = new System.Drawing.Point(111, 107);
             this.seedVal.Name = "seedVal";
-            this.seedVal.Size = new System.Drawing.Size(208, 20);
+            this.seedVal.Size = new System.Drawing.Size(140, 20);
             this.seedVal.TabIndex = 11;
             this.seedVal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.seedVal.Value = new decimal(new int[]
@@ -307,7 +380,7 @@
             this.occupation.Dock = System.Windows.Forms.DockStyle.Top;
             this.occupation.Location = new System.Drawing.Point(111, 81);
             this.occupation.Name = "occupation";
-            this.occupation.Size = new System.Drawing.Size(208, 20);
+            this.occupation.Size = new System.Drawing.Size(140, 20);
             this.occupation.TabIndex = 14;
             this.occupation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.occupation.Value = new decimal(new int[]
@@ -318,46 +391,20 @@
                 131072
             });
             //
-            // tableLayoutPanel2
-            //
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent,
-                                                    100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute,
-                                                    20F));
-            this.tableLayoutPanel2.Controls.Add(this.generateHeightmap, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 172);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(322, 29);
-            this.tableLayoutPanel2.TabIndex = 5;
-            //
-            // generateHeightmap
-            //
-            this.generateHeightmap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.generateHeightmap.Location = new System.Drawing.Point(3, 3);
-            this.generateHeightmap.Name = "generateHeightmap";
-            this.generateHeightmap.Size = new System.Drawing.Size(316, 23);
-            this.generateHeightmap.TabIndex = 2;
-            this.generateHeightmap.Text = "Generate Heightmap";
-            this.generateHeightmap.UseVisualStyleBackColor = true;
-            this.generateHeightmap.Click += new System.EventHandler(this.generateHeightmap_Click);
-            //
             // DiffusionLimitedAgregationEditor
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 202);
+            this.ClientSize = new System.Drawing.Size(260, 250);
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DiffusionLimitedAgregationEditor";
             this.Text = "Diffusion Limited Agregation";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.copyCount)).EndInit();
@@ -366,7 +413,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.mapWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.seedVal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.occupation)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -389,5 +435,8 @@
         private System.Windows.Forms.NumericUpDown copyCount;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button generateHeightmap;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton radialBlur;
+        private System.Windows.Forms.RadioButton radioButton2;
     }
 }
