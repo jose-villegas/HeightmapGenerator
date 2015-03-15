@@ -87,6 +87,9 @@ namespace HeightmapGenerator
                     dlaCopies.Add(blurredBitmap);
                 }
 
+                // add noise to final texture collections
+                if(noiseEnabled.Checked) dlaCopies.Add(NoiseTexture(seed, 255));
+
                 // normalize all blurred heightmaps
                 Bitmap bmp = (Bitmap)heightmap.Texture.Clone();
                 BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
