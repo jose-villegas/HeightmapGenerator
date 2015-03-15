@@ -7,7 +7,7 @@ Diffusion Limited Aggregation, 6 Blur Pass + Noise
 
 Diffusion Limited Aggregation, 6 Blur Pass + Noise
 
-![Screenshot](https://raw.githubusercontent.com/jose-villegas/HeightmapGenerator/master/HeightmapGenerator/Resources/dla_4.BMP)
+![Screenshot](https://raw.githubusercontent.com/jose-villegas/HeightmapGenerator/master/HeightmapGenerator/Resources/dla_4.BMP)![Screenshot](https://raw.githubusercontent.com/jose-villegas/HeightmapGenerator/master/HeightmapGenerator/Resources/dla_4_render.png)
 
 Diffusion Limited Aggregation, 6 Blur Pass + Noise
 
