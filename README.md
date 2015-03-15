@@ -27,4 +27,4 @@ Perlin Noise
 
 Simplex Noise
 
-![Screenshot](https://raw.githubusercontent.com/jose-villegas/HeightmapGenerator/master/HeightmapGenerator/Resources/improv_perlin_1.BMP)
+![Screenshot](https://raw.githubusercontent.com/jose-villegas/HeightmapGenerator/master/HeightmapGenerator/Resources/improv_perlin1.BMP)
